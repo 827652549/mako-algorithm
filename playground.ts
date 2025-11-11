@@ -1,17 +1,19 @@
-function twoSum(nums: number[], target: number): number[] {
+function threeSum(nums: number[]): number[][] {
+    const arrTotal: number[][] = [];
     for (let i = 0; i < nums.length; i++) {
-        const copyArr = JSON.parse(JSON.stringify(nums));
-        const tempA = copyArr[i]
-        copyArr[i] = NaN
-        for (let j = 0; j < nums.length; j++) {
-            if (Number.isNaN(nums[j]) || j === i) {
-                continue;
-            }
-            if (tempA + nums[j] === target) {
-                return [tempA, nums[j]]
+        for (let j = i + 1; j < nums.length; j++) {
+            for (let x = j + 1; x < nums.length; x++) {
+                if (nums[i] + nums[j] + nums[x] === 0) {
+                    arrTotal.push([nums[i], nums[j], nums[x]]);
+                }
             }
         }
-    }
-};
 
-console.log(twoSum([2, 7, 11, 15], 9))
+    }
+    const set = new Set<string>()
+    arrTotal.forEach(element => {
+        set.add(element.sort((a, b) => a - b).join('@'));
+    });
+    return [...set].map((e: string) => e.split('@').map(e => parseInt(e, 10)));
+}
+console.log(threeSum([-1, 0, 1, 2, -1, -4]))

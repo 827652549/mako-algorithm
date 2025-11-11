@@ -1,4 +1,9 @@
 
-理论指导
-https://docs.google.com/document/d/1MUDcmsvre8Tr9xFU1uZDDy4KTvY2oVyxe1tn_4UELes/edit?tab=t.0
-
+| 目录/文件 | 目的 | 关联算法思维 |
+| --- | --- | --- |
+| README.md | 核心仪表盘，展示学习进度、核心模板速查表和个人总结。 | 战略概览与知识查阅 |
+| src/ | 源代码主目录。 | 工程化代码管理 |
+| src/arrays-strings/ | 包含数组、字符串、双指针、滑动窗口等代码。 | 模式分类与归纳 |
+| src/graphs-trees/ | 包含深度优先搜索 (DFS)、广度优先搜索 (BFS)、树和图论代码。 | 模式分类与归纳 |
+| src/dp-greedy/ | 包含动态规划和贪心算法代码。 | 模式分类与归纳 |
+| Notes/ | 包含解题记录（Markdown 或 TXT 格式）。 | 存放失败记录、解题思路、复杂度分析 |
