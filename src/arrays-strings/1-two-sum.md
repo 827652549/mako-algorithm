@@ -96,6 +96,3 @@ function twoSum(nums: number[], target: number): number[] {
 }
 ```
 TC: O(n), SC: O(n)
-
-
-# 拓展训练
