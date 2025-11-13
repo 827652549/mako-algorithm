@@ -1,17 +1,16 @@
-/**
- Do not return anything, modify nums in-place instead.
-
- |
- 输入: nums = [1,2,3,4,5,6,7], k = 3
- 输出: [5,6,7,1,2,3,4]
-
-
- */
-function rotate(nums: number[], k: number): void {
-  const newArr = nums.slice(nums.length - k).concat(nums.slice(0, nums.length - k))
-  for (let i = 0; i < nums.length; i++) {
-    nums[i] = newArr[i]
+// 输入：[7,1,5,3,6,4]
+// 输出：5
+function maxProfit(prices: number[]): number {
+  if (prices.length < 2) return 0;
+  let currMinPrice = prices[0];
+  let currMaxRange = 0;
+  for (const price of prices) {
+    currMinPrice = Math.min(currMinPrice, price);
+    currMaxRange = Math.max(currMaxRange, price - currMinPrice);
   }
+  return currMaxRange;
 }
 
-console.log(rotate([ 1, 2, 3, 4, 5, 6, 7 ],3))
+console.log(maxProfit([ 7, 1, 5, 3, 6, 4 ]))
+console.log(maxProfit([ 7, 6, 4, 3, 1 ]))
+console.log(maxProfit([ 1, 2 ]))
