@@ -1,9 +1,6 @@
-function maxProfit(prices: number[]): number {
-  let maxProfit = 0;
-  for (let i = 0; i < prices.length; i++) {
-      for (let j = 0; j < prices.length - i -1; j++) {
-        maxProfit = Math.max(maxProfit, prices[i+j+1] - prices[i]);
-      }
-  }
-  return maxProfit;
+const arr = [ 1, 2, 3, 4, 5, 5, 6, 1, 1, 2 ]
+for (let i = 0; i < arr.length; i++) {
+  const arrCopy = arr
+  const temp = arrCopy.length
+  console.log(arr[i])
 }
