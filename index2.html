@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        div{
+            border: 1px solid red;
+            padding: 4px;
+        }
+        #a{
+        }
+        #f{
+            overflow: hidden;
+        }
+        .son{
+            width:calc(100%/3 - 10px*2);
+            margin:5px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    父
+    <div>
+        子
+    </div>
+</div>
+
+
+<!--
+用 css 实现如下的多列布局（类似九宫格，右下角为空）
+效果：父元素宽度自适应所在容器宽度，高度由子元素撑开，
+    有不定数量的直接子元素（可以用8个演示），
+    每一行排3 个子元素，子元素之间的水平、垂直间距为 10px ，
+    子元素的宽度自适应父元素的宽度（(父元素宽度 - 10px * 2) / 3），
+    子元素的高度与自身的宽度成正比（比如 2:1 ）
+-->
+<!--<div id="a">-->
+<!--    <div id="f">-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+<!--        <div class="son">son</div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+
+</body>
+</html>
