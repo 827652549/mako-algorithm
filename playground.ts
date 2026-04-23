@@ -1,46 +1,29 @@
-/** * 实现一个数组去重函数 unique
- * * * @example
- *  * [1,'1',1] -> [1,'1']
- * * [{a: 1}, {b: 1}, {a: 1}] -> [{a: 1}, {b: 1}]
- *  * [{a: 1, b: 2}, {b: 1}, {a: 1, b: 2}] -> [{a: 1, b: 2}, {b: 1}]
- * * [[1, {a: 1}], [2], [3], [1, {a: 1}]] -> [[1, {a: 1}], [2], [3]]
- * * [[1, {a: 1, b: 2}], [2], [3], [1, {b:2 ,a: 1}]] -> [[1, {a: 1, b: 2}], [2],
- */
-type Base = number | string | Record<string, number>
+// Promise.all()// 所有成功算成功, 任意失败直接失败
+// Promise.allSettled()// 只看结果, 收集所有成功和失败结束后的结果
+// Promise.any()// 除非全部失败, 否在返回最快的成功的
+// Promise.race()// 返回最快的那个, 可以成功或失败
+//
 
-function unique(arr: any[]) {
-  const seen = new Set<string>()
-  return arr.filter(e => {
-    const key = _stand(e)
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
 
-  function _stand(e: any): string {
-    if (Array.isArray(e)) {
-      return '[' + e.map(item => _stand(item)).join(',') + ']'
-    } else if (e !== null && typeof e === 'object') {
-      const entries = Object.keys(e).sort().map(k => `${JSON.stringify(k)}:${_stand(e[k])}`)
-      return '{' + entries.join(',') + '}'
-    } else {
-      return JSON.stringify(e)
+function myAny(ps: Promise<unknown>[]) {
+  const reasonArr = Array(ps.length)
+  let count = 0
+  return new Promise((resolve, reject) => {
+    if (ps.length === 0) reject(new AggregateError([]))
+    for (let i = 0; i < ps.length; i++) {
+      ps[i].then(value => {
+        resolve(value)
+      }).catch(reason => {
+        reasonArr[i] = reason
+        count++
+        if (count === ps.length) {
+          reject(new AggregateError(reasonArr))
+        }
+      })
     }
-  }
+  })
 }
-
-const tests = [
-  { input: [ 1, '1', 1 ], expected: [ 1, '1' ] },
-  { input: [ { a: 1 }, { b: 1 }, { a: 1 } ], expected: [ { a: 1 }, { b: 1 } ] },
-  { input: [ { a: 1, b: 2 }, { b: 1 }, { a: 1, b: 2 } ], expected: [ { a: 1, b: 2 }, { b: 1 } ] },
-  { input: [ [ 1, { a: 1 } ], [ 2 ], [ 3 ], [ 1, { a: 1 } ] ], expected: [ [ 1, { a: 1 } ], [ 2 ], [ 3 ] ] },
-  {
-    input: [ [ 1, { a: 1, b: 2 } ], [ 2 ], [ 3 ], [ 1, { b: 2, a: 1 } ] ],
-    expected: [ [ 1, { a: 1, b: 2 } ], [ 2 ], [ 3 ] ],
-  },
-]
-
-tests.forEach(({ input, expected }, i) => {
-  const result = unique(input)
-  console.log(`Test ${ i + 1 }:`, JSON.stringify(result) === JSON.stringify(expected) ? 'PASS' : 'FAIL')
+//
+myAny(Array(5).fill(Promise.reject(23))).catch(r=>{
+  console.log(r)
 })

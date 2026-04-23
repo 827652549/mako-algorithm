@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        #d {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-<div id="x"></div>
-<p id="footer">footer</p>
+<div id="d">拖动</div>
 <script>
     window.onload = () => {
-        const container = document.getElementById('x')
-        const footer = document.getElementById('footer')
-        let count = 0
-
-        const intersectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    const fragment = document.createDocumentFragment()
-                    for (let i = 0; i < 20; i++) {
-                        const div = document.createElement('div')
-                        div.innerText = 'item ' + (++count)
-                        fragment.appendChild(div)
-                    }
-                    container.appendChild(fragment)
-                }
-            })
+        let isDown = false
+        let currOffsetY;
+        let currOffsetX;
+        const div = document.getElementById('d')
+        div.addEventListener('mousemove', function (e) {
+            if (isDown) {
+                div.style.top = (e.clientY - currOffsetY) + 'px'
+                div.style.left = (e.clientX - currOffsetX) + 'px'
+            }
         })
-        intersectionObserver.observe(footer)
+        div.addEventListener('mousedown', function (e) {
+            currOffsetY = e.offsetY
+            currOffsetX = e.offsetX
+            isDown = true
+        })
+        div.addEventListener('mouseup', function () {
+            isDown = false
+        })
+        div.addEventListener('mouseleave', function() {
+            isDown = false
+        })
     }
 </script>
 
